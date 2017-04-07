@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
 	c := make(chan int)
 	//by default,send and receiver blocks when the other side is not ready
 	//so you can not write to and read from a same channel in same goroutine step by step, it causes deadlock.
+	go read(c)
+	time.Sleep(5 * time.Second)
 	go write(c)
-	fmt.Print(read(c))
+	time.Sleep(10 * time.Millisecond)
 }
 
 func write(c chan int) {
@@ -18,6 +21,7 @@ func write(c chan int) {
 }
 
 func read(c chan int) int {
-	fmt.Println("read from channel")
+	fmt.Println("come in read from channel")
+	defer fmt.Println("read a value")
 	return <-c
 }
