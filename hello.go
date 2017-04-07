@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	task "tourBase/subTask"
 )
 
@@ -17,4 +18,21 @@ func main() {
 	fmt.Printf("%T", a)
 	fmt.Println()
 	fmt.Println(a.AbsInt())
+
+	//notice what happen if there is no * sign below.
+	underConcreteValue := a.(*task.MyFloat64)
+	fmt.Printf("%T", underConcreteValue)
+
+	fmt.Println()
+	str1 := 127
+	str2 := 0
+	fmt.Print(strconv.Itoa(str1) + "." + strconv.Itoa(str2))
+
+	i, err := parseInt("x")
+	fmt.Print(err)
+	fmt.Print(i)
+}
+
+func parseInt(v string) (int, error) {
+	return strconv.Atoi(v)
 }
